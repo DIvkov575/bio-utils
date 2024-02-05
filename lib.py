@@ -143,7 +143,7 @@ rna_to_AA = {
 
 
 def dna_to_pre_rna(dna_string: str) -> str:
-    return dna_string.translate(dna_rna_nucleotides)
+    return dna_string.translate(dna_rna_nucleotides).__reversed__()
 
 
 def rna_to_AA(rna_string: str) -> list(str):
@@ -157,7 +157,7 @@ def rna_to_AA(rna_string: str) -> list(str):
     if len(buf) != 0:
         raise Exception("rna_string #nucleotides is not a multiple of 3")
 
-    return pp_chain
+    return pp_chain.__reversed__()
 
 
 
