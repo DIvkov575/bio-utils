@@ -10,7 +10,7 @@ dna_rna_nucleotides = str.maketrans({
     'g': 'c'
 })
 
-rna_to_AA = {
+rna_AA = {
     "UUU": "Phe",
     "UUC": "Phe",
     "UUA": "Leu",
@@ -143,23 +143,25 @@ rna_to_AA = {
 
 
 def dna_to_pre_rna(dna_string: str) -> str:
-    return dna_string.translate(dna_rna_nucleotides).__reversed__()
+    return dna_string.translate(dna_rna_nucleotides)
 
 
-def rna_to_AA(rna_string: str) -> list(str):
+def rna_to_AA(rna_string: str):
     pp_chain = []
     buf = ""
     for char in rna_string:
         buf += char
         if len(buf) == 3:
-            pp_chain.append(buf.lower())
+            pp_chain.append(rna_AA[buf.lower()])
             buf = ""
     if len(buf) != 0:
         raise Exception("rna_string #nucleotides is not a multiple of 3")
 
-    return pp_chain.__reversed__()
+    return list(pp_chain)
 
 
 
-
-
+a = dna_to_pre_rna("TAC AAT GTA GAG CAA CAG AAA GAC CAA TGA TAT CGA CTC TAT AAT GAT TAA TAA TAC TCC").split(" ")
+# print(a)
+# a = "TAC AAT GTA GAG CAA CAG AAA GAC CAA TGA TAT CGA CTC TAT AAT GAT TAA TAA TAC TCC".split(" ")
+print(*rna_to_AA(a))
